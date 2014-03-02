@@ -34,6 +34,18 @@ na = %w[| \\ < , > . ? / : ; @ ' ~ # { [ } ] - _ + = \  ! " £ $ % ^ & * ( )]
 # This starts as everything...and ends up as what's left
 x = a + n + na + aU
 
+class Bignum
+  def log2
+    Math::log(self)/Math::log(2)    
+  end
+end
+
+class Fixnum
+  def log2
+    Math::log(self)/Math::log(2)    
+  end
+end
+
 def get_char input_array, progress_array
   target = rand(input_array.length)
   progress_array.push input_array[target]
@@ -72,6 +84,7 @@ password = []
 pass_crib = []
 pass_crib_guide = []
 pass_length = 0
+entropy = 0
 
 # process args
 if ARGV.length > 1
@@ -169,6 +182,8 @@ end
 
 pass_crib.each do |array|
   get_char array, password
+  entropy += array.length.log2
 end
 
 puts password.join
+puts 'Entropy: ' + ("%5.2f" % (entropy.to_s))
