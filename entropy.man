@@ -1,0 +1,87 @@
+.TH ENTROPY 1 "17 July 2007"
+.SH NAME
+entropy \- Flexible and secure password generator
+.SH SYNOPSIS
+.B entropy
+[ --caps \fIn\fP | --num \fIn\fP | --non-alpha \fIn\fP | --random \fIn\fP ]
+[ --no-caps | --no-non-alpha | --no-num ]
+[ --environ ]
+[ \fIpassword_length\fP ]
+.SH DESCRIPTION
+.B entropy
+can generate passwords in a variety of formats using simple 
+options. The user has absolute control over the structure of the password.
+.SS Options
+.TP
+--caps \fIn\fP
+Specify the exact number of uppercase alpha chars, \fIn\fP, to be used in the password
+.TP
+--num \fIn\fP
+Specify the exact number of numerical chars, \fIn\fP, to be used in the password
+.TP
+--non-alpha \fIn\fP
+Specify the exact number of non-alpha chars, \fIn\fP, to be used in the password
+.TP
+--random \fIn\fP
+Specify the exact number of random chars, \fIn\fP, to be used in the password. Can be
+used with any combination of the previous options to create a structured password.
+.TP
+--no-caps
+Do not include uppercase alpha chars in the password. This option is overidden by
+the --caps option.
+.TP
+--no-num
+Do not include numerical chars in the password. This option is overidden by
+the --num option.
+.TP
+--no-non-alpha
+Do not include non-alpha chars in the password. This option is overidden by
+the --non-alpha option.
+.TP
+--environ
+This option cannot be combined with other options and will simply generate
+passwords of the following form: 
+consonant, vowel, consonant, consonant, vowel, consonant, number, number
+(for example pinray45)
+.TP
+\fIpassword_length\fP
+This is actually an optional arguement and has two uses.  Firstly, it can
+simply be used in conjunction with the options above to define the total
+password length.  Second, when used in conjucntion with --caps, --num,
+--non-alpha and --random it can be used to create a fully structured password.
+See the final example for more details.
+.SS EXAMPLES
+.TP
+\fBentropy 10\fP
+This will generate a 10 char password based on all the available characters.
+ This will be hard to remember but more than secure for everyday use.
+.TP
+\fBentropy --no-caps 10\fP
+As above but won’t include any uppercase alpha chars. Statistically this
+password will be less secure than the password above.
+.TP
+\fBentropy --num 2 --no-caps 10\fP
+Again, this is the same as the previous password but will only include 2
+numerical chars. Statistically this is less secure again.
+.TP
+\fBentropy --non-alpha 3 --num 2 --no-caps 10\fP
+Here the components of the password have been refined even further. This
+password will include 2 numerical chars and 3 non-alpha chars. Because we
+have also stated that we don’t want any uppercase alpha chars, the only
+remaining char type is lowercase alpha. Therefore the 5 remaining chars
+will all be lowercase alpha chars.
+.TP
+\fBentropy --random 8 --num 2 --no-caps --no-non-alpha 10\fP
+This is a completely structured password. It will include exactly 2
+numerical chars and 8 other non-numerical, lowercase alpha chars. Because
+we have specified exactly which char types all 10 chars should be entropy
+structures the password exactly as requested: 8 random non-numerical,
+lowercase alpha chars followed by 2 numerical chars.
+.SH FILES
+.TP
+/usr/bin/entropy
+.SH BUGS
+Please report bugs to dibble@thewrecker.net
+.SH AUTHORS
+.nf
+Phil Dillon-Thiselton <dibble@thewrecker.net>
